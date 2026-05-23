@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Abhay Shukla | Digital Marketing & Creative Design</title>
+  <!-- Google Fonts: Inter, Poppins, Satoshi -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.fonts.coollabs.io/css2?family=Satoshi:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS Scroll Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Swiper JS for Testimonials -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Satoshi', 'Inter', 'Poppins', sans-serif;
+      background-color: #05050A;
+      color: #EDF2F8;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Animated cursor */
+    .custom-cursor {
+      width: 12px;
+      height: 12px;
+      background: #3B82F6;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease;
+      mix-blend-mode: difference;
+    }
+
+    /* Floating gradient blobs */
+    .blob {
+      position: fixed;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(139,92,246,0.08) 70%);
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: -2;
+      pointer-events: none;
+    }
+    .blob-1 { top: -20vh; left: -20vw; }
+    .blob-2 { bottom: -10vh; right: -15vw; background: radial-gradient(circle, rgba(168,85,247,0.25), rgba(59,130,246,0.05)); }
+
+    /* glassmorphism core */
+    .glass-card, .skill-card, .service-card, .portfolio-card, .testimonial-card, .contact-glass {
+      background: rgba(18, 22, 40, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 32px;
+      transition: all 0.35s ease;
+    }
+    .glass-card:hover, .skill-card:hover, .service-card:hover, .portfolio-card:hover {
+      border-color: #3B82F6;
+      transform: translateY(-8px);
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #FFFFFF, #A5B4FC, #C084FC);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: #3B82F6;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    /* navbar sticky */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(5, 5, 10, 0.75);
+      backdrop-filter: blur(18px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(59,130,246,0.2);
+      padding: 18px 0;
+    }
+    .nav-container {
+      max-width: 1300px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 32px;
+    }
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(120deg, #FFFFFF, #3B82F6);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #E2E8F0;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: #3B82F6; }
+
+    /* buttons */
+    .btn-primary, .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.25s;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: #3B82F6;
+      color: white;
+      box-shadow: 0 6px 18px rgba(59,130,246,0.4);
+    }
+    .btn-primary:hover {
+      background: #2563EB;
+      transform: scale(1.02);
+    }
+    .btn-outline {
+      border: 1.5px solid #3B82F6;
+      color: #EFF3F8;
+    }
+    .btn-outline:hover {
+      background: rgba(59,130,246,0.15);
+      border-color: #60A5FA;
+    }
+
+    /* skills & services grid */
+    .skills-grid, .services-grid, .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .skill-card, .service-card, .portfolio-card {
+      padding: 1.8rem;
+      border-radius: 28px;
+      background: rgba(18, 22, 40, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+    .skill-icon, .service-icon {
+      font-size: 2.5rem;
+      color: #3B82F6;
+      margin-bottom: 1rem;
+    }
+    /* progress indicator style */
+    .progress-bar {
+      height: 5px;
+      background: rgba(59,130,246,0.2);
+      border-radius: 10px;
+      margin: 12px 0 8px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 5px;
+      background: #3B82F6;
+      width: 0%;
+      border-radius: 10px;
+      transition: width 1s ease;
+    }
+
+    /* hero visuals + particles */
+    .hero-visual {
+      background: radial-gradient(circle at 30% 40%, rgba(59,130,246,0.2), transparent);
+      border-radius: 48px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .floating-shape {
+      position: absolute;
+      background: rgba(59,130,246,0.2);
+      border-radius: 50%;
+      filter: blur(30px);
+      animation: float 8s infinite ease-in-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-20px) translateX(15px); }
+      100% { transform: translateY(0px) translateX(0px); }
+    }
+
+    /* testimonial swiper */
+    .testimonial-card {
+      padding: 2rem;
+      height: auto;
+    }
+    .swiper-pagination-bullet-active {
+      background: #3B82F6 !important;
+    }
+
+    /* contact glass */
+    .contact-glass {
+      padding: 2rem;
+      border-radius: 40px;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 28px;
+      color: white;
+      font-family: inherit;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 1px solid rgba(59,130,246,0.2);
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .container { padding: 0 24px; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 60px 0; }
+    }
+
+    /* loading screen */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #05050A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.8s ease;
+    }
+    .loader-inner {
+      width: 55px;
+      height: 55px;
+      border: 3px solid rgba(59,130,246,0.2);
+      border-top: 3px solid #3B82F6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="loader" id="loader"><div class="loader-inner"></div></div>
+<div class="custom-cursor" id="cursor"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<nav>
+  <div class="nav-container">
+    <div class="logo">ABHAY</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero Section with Particles effect -->
+  <section id="home" style="padding-top: 60px;">
+    <div class="container">
+      <div class="hero-content" data-aos="fade-up">
+        <div class="section-sub"><i class="fas fa-bolt"></i> MULTI-DISCIPLINARY CREATIVE</div>
+        <h1 style="font-size: 4.5rem; line-height: 1.1;">Designing <span style="background: linear-gradient(130deg,#fff,#60A5FA); background-clip:text; -webkit-background-clip:text; color:transparent;">Experiences</span><br>That Build Brands</h1>
+        <p style="font-size: 1.2rem; max-width: 580px; margin: 1.8rem 0; color: #CBD5E1;">Hi, I'm Abhay Shukla — a Creative Digital Marketer, Graphic Designer, and UI/UX Enthusiast focused on building visually engaging and impactful digital experiences.</p>
+        <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
+          <a href="#portfolio" class="btn-primary"><i class="fas fa-arrow-right"></i> View Projects</a>
+          <a href="#contact" class="btn-outline"><i class="fas fa-paper-plane"></i> Hire Me</a>
+        </div>
+      </div>
+      <div class="hero-visual" data-aos="fade-left" style="margin-top: 3rem;">
+        <div class="floating-shape" style="width: 150px; height: 150px; top: -30px; right: -20px;"></div>
+        <div class="floating-shape" style="width: 100px; height: 100px; bottom: 10px; left: 10px; animation-duration: 12s;"></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; align-items: center;">
+          <i class="fas fa-laptop-code" style="font-size: 3rem; color: #3B82F6;"></i>
+          <i class="fas fa-chart-line" style="font-size: 3rem; color: #A855F7;"></i>
+          <i class="fas fa-mobile-alt" style="font-size: 3rem; color: #3B82F6;"></i>
+          <i class="fas fa-palette" style="font-size: 3rem; color: #C084FC;"></i>
+          <i class="fas fa-chart-simple" style="font-size: 3rem; color: #60A5FA;"></i>
+        </div>
+        <p style="margin-top: 1.5rem;">Young creative designer • UI/UX dashboards • Digital marketing analytics • Modern workspace vibes</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about">
+    <div class="container">
+      <div data-aos="fade-right">
+        <span class="section-sub">About me</span>
+        <h2>Creativity + Strategy = Brand Impact</h2>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 3rem; margin-top: 2rem;">
+        <div style="flex: 1.5;" data-aos="fade-up">
+          <p style="line-height: 1.6; font-size: 1.1rem;">Hello! I am a creative and dedicated Digital Marketing Specialist and Graphic Designer with experience in social media management, Canva designing, presentation design, Google Ads, and content creation. I help businesses grow online by creating attractive designs, engaging social media content, and professional marketing materials. I am passionate about delivering high-quality work on time and maintaining strong communication with clients. I am always eager to learn new skills and provide the best results through creativity, strategy, and modern design thinking.</p>
+          <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1.2rem;">
+            <div class="glass-card" style="padding: 0.8rem 1.6rem;"><i class="fas fa-graduation-cap"></i> B.Sc 2nd Year Student</div>
+            <div class="glass-card" style="padding: 0.8rem 1.6rem;"><i class="fas fa-brain"></i> Self-Learning UI/UX Designer</div>
+            <div class="glass-card" style="padding: 0.8rem 1.6rem;"><i class="fas fa-chart-line"></i> Digital Marketing Enthusiast</div>
+            <div class="glass-card" style="padding: 0.8rem 1.6rem;"><i class="fas fa-crown"></i> Freelance Creative Designer</div>
+          </div>
+        </div>
+        <div style="flex: 0.9;" data-aos="fade-left">
+          <div class="glass-card" style="padding: 2.2rem; text-align: center;">
+            <i class="fas fa-user-astronaut" style="font-size: 4rem; color: #3B82F6;"></i>
+            <h3 style="margin-top: 1rem;">Abhay Shukla</h3>
+            <p>Digital Marketing & UI/UX Designer</p>
+            <div style="height: 4px; width: 60px; background: #3B82F6; margin: 1rem auto;"></div>
+            <p style="font-size: 0.9rem;">“Design that speaks, strategies that scale.”</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section (Animated progress indicators) -->
+  <section id="skills" style="background: radial-gradient(circle at 20% 50%, rgba(30,58,138,0.15), transparent);">
+    <div class="container">
+      <span class="section-sub">Core expertise</span>
+      <h2>Skills & modern tools</h2>
+      <div class="skills-grid" data-aos="fade-up">
+        <div class="skill-card"><i class="fab fa-instagram skill-icon"></i><h3>Social Media Management</h3><div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div><p>Strategy, scheduling, growth</p></div>
+        <div class="skill-card"><i class="fas fa-paintbrush skill-icon"></i><h3>Graphic Design</h3><div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div><p>Visual identity, print & digital</p></div>
+        <div class="skill-card"><i class="fas fa-crown skill-icon"></i><h3>Canva Design</h3><div class="progress-bar"><div class="progress-fill" style="width: 96%;"></div></div><p>Premium templates & brand kits</p></div>
+        <div class="skill-card"><i class="fas fa-chart-line skill-icon"></i><h3>Google Ads Setup</h3><div class="progress-bar"><div class="progress-fill" style="width: 82%;"></div></div><p>PPC, keyword optimization</p></div>
+        <div class="skill-card"><i class="fas fa-mobile-alt skill-icon"></i><h3>UI/UX Design</h3><div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div><p>Figma, wireframing, prototyping</p></div>
+        <div class="skill-card"><i class="fas fa-file-powerpoint skill-icon"></i><h3>Presentation/PPT Design</h3><div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div><p>Pitch decks & corporate slides</p></div>
+        <div class="skill-card"><i class="fas fa-video skill-icon"></i><h3>Basic Video Editing</h3><div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div><p>Reels, shorts, transitions</p></div>
+        <div class="skill-card"><i class="fas fa-trademark skill-icon"></i><h3>Branding & SEO Basics</h3><div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div><p>Logo, guidelines, on-page SEO</p></div>
+        <div class="skill-card"><i class="fab fa-figma skill-icon"></i><h3>Figma / Photoshop</h3><div class="progress-bar"><div class="progress-fill" style="width: 86%;"></div></div><p>UI design & photo editing</p></div>
+        <div class="skill-card"><i class="fas fa-feather-alt skill-icon"></i><h3>Content Creation</h3><div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div><p>Copywriting, blogs, AI tools</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="container">
+    <span class="section-sub">What I offer</span>
+    <h2>Premium creative services</h2>
+    <div class="services-grid" data-aos="zoom-in">
+      <div class="service-card"><i class="fas fa-mobile-alt service-icon"></i><h3>UI/UX Design</h3><p>High-fidelity prototypes, app & web interfaces</p><div style="margin-top:12px;"><i class="fas fa-mockup"></i> Mobile UI mockups</div></div>
+      <div class="service-card"><i class="fas fa-palette service-icon"></i><h3>Graphic Design</h3><p>Social posts, brochures, marketing collateral</p><div style="margin-top:12px;"><i class="fas fa-image"></i> Canva-style creatives</div></div>
+      <div class="service-card"><i class="fas fa-chart-simple service-icon"></i><h3>Social Media Management</h3><p>End-to-end brand presence & engagement</p><div style="margin-top:12px;">📱 Campaign previews</div></div>
+      <div class="service-card"><i class="fas fa-crown service-icon"></i><h3>Brand Identity Design</h3><p>Distinct logos, color systems, style guides</p><div style="margin-top:12px;">🎨 Branding presentations</div></div>
+      <div class="service-card"><i class="fas fa-ad service-icon"></i><h3>Google Ads Setup</h3><p>Campaigns, A/B testing, conversion tracking</p><div style="margin-top:12px;">📊 Marketing dashboards</div></div>
+      <div class="service-card"><i class="fas fa-file-powerpoint service-icon"></i><h3>Presentation Design</h3><p>Investor decks, corporate pitch</p><div style="margin-top:12px;">💼 Laptop workspace aesthetics</div></div>
+      <div class="service-card"><i class="fas fa-feather-alt service-icon"></i><h3>Content Creation</h3><p>Captions, blogs, ad copies, AI powered</p></div>
+      <div class="service-card"><i class="fas fa-bullhorn service-icon"></i><h3>Creative Advertising</h3><p>Ad creatives & copy that convert</p></div>
+    </div>
+  </section>
+
+  <!-- Portfolio Projects Section with interactive previews -->
+  <section id="portfolio" style="background: rgba(0,0,0,0.2);">
+    <div class="container">
+      <span class="section-sub">Selected work</span>
+      <h2>Digital creations & campaigns</h2>
+      <div class="portfolio-grid" data-aos="fade-up">
+        <div class="portfolio-card"><i class="fas fa-mobile-alt" style="font-size: 2rem; color:#3B82F6;"></i><h3 style="margin:1rem 0 0.5rem;">Mobile App UI</h3><p>Fintech dashboard with glassmorphism & dark mode.</p><div class="portfolio-mock" style="margin-top:12px; background:rgba(59,130,246,0.1); border-radius:20px; padding:8px;"><i class="fas fa-mobile-screen"></i> iPhone UI preview</div></div>
+        <div class="portfolio-card"><i class="fas fa-laptop-code" style="font-size: 2rem; color:#3B82F6;"></i><h3 style="margin:1rem 0 0.5rem;">Landing Page Design</h3><p>AI startup landing page - 40% higher conversion.</p><div class="portfolio-mock" style="margin-top:12px; background:rgba(59,130,246,0.1); border-radius:20px; padding:8px;">🖥️ MacBook mockup</div></div>
+        <div class="portfolio-card"><i class="fas fa-camera" style="font-size: 2rem; color:#3B82F6;"></i><h3 style="margin:1rem 0 0.5rem;">Social Media Creatives</h3><p>Instagram carousels for luxury brand → +89% engagement</p><div class="portfolio-mock" style="margin-top:12px; background:rgba(59,130,246,0.1); border-radius:20px; padding:8px;">📸 Instagram post mockups</div></div>
+        <div class="portfolio-card"><i class="fas fa-crown" style="font-size: 2rem; color:#3B82F6;"></i><h3 style="margin:1rem 0 0.5rem;">Brand Identity Projects</h3><p>Complete visual identity for organic café & tech startup.</p><div class="portfolio-mock" style="margin-top:12px; background:rgba(59,130,246,0.1); border-radius:20px; padding:8px;">🏷️ Branding billboard mockup</div></div>
+        <div class="portfolio-card"><i class="fas fa-chart-line" style="font-size: 2rem; color:#3B82F6;"></i><h3 style="margin:1rem 0 0.5rem;">Marketing Campaign Graphics</h3><p>360° campaign creatives + 3x ROAS via Meta ads.</p><div class="portfolio-mock" style="margin-top:12px; background:rgba(59,130,246,0.1); border-radius:20px; padding:8px;">📊 Creative dashboard visuals</div></div>
+        <div class="portfolio-card"><i class="fas fa-file-powerpoint" style="font-size: 2rem; color:#3B82F6;"></i><h3 style="margin:1rem 0 0.5rem;">Presentation Design</h3><p>Minimal pitch deck for series A startup.</p><div class="portfolio-mock" style="margin-top:12px; background:rgba(59,130,246,0.1); border-radius:20px; padding:8px;">📑 Presentation preview</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Slider (Experience section removed) -->
+  <section style="overflow: hidden;">
+    <div class="container">
+      <span class="section-sub">Client love</span>
+      <h2>What clients say</h2>
+    </div>
+    <div class="swiper testimonial-swiper" data-aos="fade-up" style="padding: 30px 0;">
+      <div class="swiper-wrapper" style="margin-bottom: 50px;">
+        <div class="swiper-slide testimonial-card"><i class="fas fa-quote-left" style="color:#3B82F6; font-size: 2rem;"></i><p style="margin: 1rem 0;">Abhay delivered an outstanding brand identity for my startup. The design system was cohesive and modern. Strongly recommend!</p><h4>— Anjali Sharma, Founder</h4></div>
+        <div class="swiper-slide testimonial-card"><i class="fas fa-quote-left" style="color:#3B82F6; font-size: 2rem;"></i><p style="margin: 1rem 0;">Social media engagement skyrocketed after Abhay took over. He understands both design and marketing perfectly.</p><h4>— Rahul Mehta, Brand Manager</h4></div>
+        <div class="swiper-slide testimonial-card"><i class="fas fa-quote-left" style="color:#3B82F6; font-size: 2rem;"></i><p style="margin: 1rem 0;">The UI/UX for our mobile app was intuitive and beautiful. Abhay is a true creative gem.</p><h4>— Sneha Iyer, Product Lead</h4></div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- Contact Section with phone, email & socials -->
+  <section id="contact" class="container">
+    <span class="section-sub">Get in touch</span>
+    <h2>Let's build something iconic.</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+      <div style="flex: 1;" data-aos="fade-right">
+        <div class="contact-glass">
+          <i class="fas fa-phone-alt" style="font-size: 2rem; color:#3B82F6;"></i>
+          <p style="margin: 1rem 0; font-size: 1.2rem;">📞 +91 90056 13908</p>
+          <i class="fas fa-envelope" style="font-size: 2rem; color:#3B82F6; margin-top: 1rem;"></i>
+          <p style="margin: 0.5rem 0;">as73920052@gmail.com</p>
+          <div class="social-icons" style="margin-top: 1.5rem; display: flex; gap: 1.2rem;">
+            <a href="#" style="color:white; font-size:1.8rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color:white; font-size:1.8rem;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" style="color:white; font-size:1.8rem;"><i class="fab fa-behance"></i></a>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1.5;" data-aos="fade-left">
+        <div class="contact-glass">
+          <form action="#" method="post">
+            <div class="form-group"><input type="text" placeholder="Full name" required></div>
+            <div class="form-group"><input type="email" placeholder="Email address" required></div>
+            <div class="form-group"><textarea rows="4" placeholder="Your project idea..."></textarea></div>
+            <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="logo" style="font-size: 1.8rem; margin-bottom: 0.5rem;">ABHAY</div>
+      <p>© 2025 Abhay Shukla — Digital Marketing & UI/UX Creative. All rights reserved.</p>
+      <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+        <a href="#" style="color:#CBD5E1;"><i class="fab fa-instagram"></i></a>
+        <a href="#" style="color:#CBD5E1;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" style="color:#CBD5E1;"><i class="fab fa-behance"></i></a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 800); }, 500);
+  });
+
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX - 6 + 'px';
+    cursor.style.top = e.clientY - 6 + 'px';
+  });
+  document.querySelectorAll('a, button, .skill-card, .service-card, .portfolio-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2.2)');
+    el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+  });
+
+  AOS.init({ duration: 800, once: true, offset: 40 });
+
+  const swiper = new Swiper('.testimonial-swiper', {
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 30,
+    pagination: { el: '.swiper-pagination', clickable: true },
+    breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 2.5 } }
+  });
+
+  document.querySelectorAll('.nav-links a, .btn-primary[href="#portfolio"], .btn-outline[href="#contact"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
